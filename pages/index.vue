@@ -54,12 +54,31 @@
           <v-card flat color="transparent">
             <v-btn
               @click="request"
+              dark
               >
               <span>Request payment to DataWallet</span>
-
+            </v-btn>
+            <v-btn
+              @click="show"
+              >
+              <span>Show payment count</span>
             </v-btn>
           </v-card>
         </v-layout>
+
+
+        <v-layout row justify-center>
+          <v-flex xs12>
+            <v-text-field
+              label="payment count"
+              v-model="payCount"
+              disabled
+              reverse
+              >
+            </v-text-field>
+          </v-flex>
+        </v-layout>
+
       </v-form>
     </v-flex>
   </v-layout>
@@ -68,6 +87,7 @@
 <script>
 
 import {mapActions, mapGetters, mapMutations} from 'vuex'
+import PassportStub from '~/contracts/PassportStub'
 import TestToken from '~/contracts/TestToken'
 import Web3 from 'web3'
 
@@ -76,6 +96,7 @@ export default {
   data: () => ({
     valid: true,
     uri: '',
+    payCount: null,
     selectedAccountAddress: ''
   }),
   computed: {
@@ -95,7 +116,6 @@ export default {
         const web3 = new Web3(new Web3.providers.HttpProvider(
           this.uri
         ))
-        // console.debug('web3:', web3)
 
         const testToken = web3.eth
           .contract(TestToken.abi).at(this.tokenAddress)
@@ -127,6 +147,32 @@ export default {
         //     }
         //   })
       }
+    },
+    /**
+     * Payment実行回数を照会
+     */
+    show () {
+      if (!this.$refs.form.validate()) return
+
+      const web3 = new Web3(new Web3.providers.HttpProvider(
+        this.uri
+      ))
+
+      const passportStub = web3.eth
+        .contract(PassportStub.abi).at(this.passportStubAddress)
+
+      passportStub.payCountOf(
+        this.selectedAccountAddress,
+        (err, result) => {
+          if (err) {
+            console.error(err)
+          } else {
+            this.payCount = result
+          }
+
+
+        }
+      )
     }
   }
 }
