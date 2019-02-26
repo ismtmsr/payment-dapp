@@ -1,0 +1,38 @@
+{
+  "name": "payment-dapp",
+  "version": "1.0.0",
+  "description": "My striking Nuxt.js project",
+  "author": "石本　大",
+  "private": true,
+  "scripts": {
+    "dev": "NUXT_PORT=3001 nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@nuxtjs/vuetify": "^0.5.5",
+    "cross-env": "^5.2.0",
+    "nuxt": "^2.4.0",
+    "vue-notifications": "^0.9.0",
+    "vuetify-loader": "^1.2.0",
+    "web3": "^0.20.7",
+    "web3-eth-abi": "^1.0.0-beta.46"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.27",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "eslint": "^5.14.1",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-vue": "^5.2.2",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.9",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "vue-jest": "^3.0.2"
+  }
+}
